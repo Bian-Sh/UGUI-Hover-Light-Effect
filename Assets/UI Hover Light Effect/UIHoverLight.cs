@@ -43,7 +43,7 @@ public class UIHoverLight : MonoBehaviour, IPointerDownHandler, IPointerUpHandle
 
         float time = 0;
         float start = material.GetFloat("_ColorOffset");
-        float end = show ? 0 : 0.98f;    // µ± _ColorOffset = 0 ÏÔÊ¾ÄÚ²¿ÑÕÉ«
+        float end = show ? 0 : 0.98f;    // å½“ _ColorOffset = 0 æ˜¾ç¤ºå†…éƒ¨é¢œè‰²
         Func<float, float> ease = show ? outCubic : inCubic;
         while (time < duration)
         {
@@ -65,7 +65,7 @@ public class UIHoverLight : MonoBehaviour, IPointerDownHandler, IPointerUpHandle
 
     private IEnumerator HideInnerColorAsync()
     {
-        //µÈ´ýShowInnerColorAsync½áÊø
+        //ç­‰å¾…ShowInnerColorAsyncç»“æŸ
         if (null != coroutine_show)
         {
             yield return coroutine_show;
