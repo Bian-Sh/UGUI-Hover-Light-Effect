@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Unlit_Hover Light_R
+  m_Name: Unlit_Hover Light
   m_Shader: {fileID: 4800000, guid: 8ed00ebc08c13854a91a98f78eb7f166, type: 3}
   m_ValidKeywords: []
   m_InvalidKeywords: []
