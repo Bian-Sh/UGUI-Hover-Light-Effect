@@ -5,7 +5,7 @@ Shader "Unlit/Hover Light"
         _MainTex ("MainTex", 2D) = "white" {}
         _MousePos ("MousePos", Vector) = (0,0,0,0)
         _ColorRadius ("ColorRadius", float) = 40
-        _Color ("Color", Color) = (0,0,0,1)
+        [HDR]_Color ("Color", Color) = (0,0,0,1)
         _ColorOffset ("ColorOffset", Range(0, 1)) = 0
         _ColorPow ("ColorPow", Range(0, 1)) = 0.5
         _BorderTex ("BorderTex", 2D) = "white" {}
