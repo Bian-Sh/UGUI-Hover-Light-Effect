@@ -56,6 +56,7 @@ public class UIHoverLight : MonoBehaviour, IPointerDownHandler, IPointerUpHandle
     private IEnumerator ChangeInnerColorStateAsync(float duration, bool show)
     {
         #region Ease
+        // reference: https://github.com/setchi/EasingCore/blob/master/EasingCore.cs
         static float inCubic(float t) => t * t * t;
         static float outCubic(float t) => inCubic(t - 1f) + 1f;
         #endregion
