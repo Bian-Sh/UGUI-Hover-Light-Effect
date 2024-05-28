@@ -8,19 +8,38 @@ public class UIHoverLight : MonoBehaviour, IPointerDownHandler, IPointerUpHandle
     [SerializeField, ColorUsage(true, true)]
     private Color color = Color.white;
 
+    [SerializeField]
+    private int radius = 100;
+
+    private float scaleFactor; // canvas .scaleFactor
     private Material material;
+    private Canvas canvas;
     Coroutine coroutine_hide;
     Coroutine coroutine_show;
 
     private void Start()
     {
+        canvas = GetComponentInParent<Canvas>();
+        scaleFactor = canvas.scaleFactor;
         var image = GetComponent<Image>();
         //create a new one as we need change color offset later but should not change the others
         material = new(image.material);
         image.material = material;
         material.SetColor("_Color", color);
+        material.SetFloat("_ColorRadius", radius);
+        // as canvas will change its scale when  screen's  resolution changed
+        // so we apply the scale factor to the shader to keep the effect the same
+        material.SetFloat("_ScaleFactor", scaleFactor); 
     }
-    private void Update() => material.SetVector("_MousePos", Input.mousePosition);
+    private void Update()
+    {
+        material.SetVector("_MousePos", Input.mousePosition);
+        if (scaleFactor!=canvas.scaleFactor)
+        {
+            scaleFactor = canvas.scaleFactor;
+            material.SetFloat("_ScaleFactor", scaleFactor);
+        }
+    }
 
     void IPointerDownHandler.OnPointerDown(PointerEventData eventData)
     {
@@ -72,4 +91,16 @@ public class UIHoverLight : MonoBehaviour, IPointerDownHandler, IPointerUpHandle
         }
         coroutine_hide = StartCoroutine(ChangeInnerColorStateAsync(0.1f, false));
     }
+
+#if UNITY_EDITOR
+    private void OnValidate()
+    {
+        // 逻辑使然，只有在运行时才能设置材质球颜色和半径
+        if (null != material&&Application.isPlaying)
+        {
+            material.SetColor("_Color", color);
+            material.SetFloat("_ColorRadius", radius);
+        }
+    }
+#endif
 }

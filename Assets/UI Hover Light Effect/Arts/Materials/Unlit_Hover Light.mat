@@ -34,7 +34,8 @@ Material:
     - _ColorOffset: 0.95
     - _ColorPow: 0.5
     - _ColorRadius: 100
+    - _ScaleFactor: 1
     m_Colors:
     - _Color: {r: 1, g: 0.08241758, b: 0, a: 1}
-    - _MousePos: {r: 759, g: 720, b: 0, a: 0}
+    - _MousePos: {r: 0, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []

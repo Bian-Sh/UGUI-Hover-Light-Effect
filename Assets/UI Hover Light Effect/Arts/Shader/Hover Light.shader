@@ -10,7 +10,12 @@ Shader "Unlit/Hover Light"
         _ColorPow ("ColorPow", Range(0, 1)) = 0.5
         _BorderTex ("BorderTex", 2D) = "white" {}
         _BorderPow ("BorderColorPow", float) = 2
+        _ScaleFactor ("ScaleFactor", float) = 1
+
     }
+
+
+
     SubShader
     {
         Tags { "RenderType"="Transparent" "Queue"="Transparent"}
@@ -82,6 +87,7 @@ Shader "Unlit/Hover Light"
             fixed4 _MousePos;
             float4 _Color;
             float _ColorRadius;
+            float _ScaleFactor;
             float _ColorOffset;
             float _ColorPow;
 
@@ -103,12 +109,12 @@ Shader "Unlit/Hover Light"
                 fixed4 col = tex2D(_MainTex, i.uv);
                 float dis = distance(_MousePos.xy, i.vertex.xy);
                 float4 addColor = _Color;
-                addColor.a = saturate(smoothstep(_ColorRadius, 0, dis) - _ColorOffset * sign(col.a-0.1));
+                addColor.a = saturate(smoothstep(_ColorRadius*_ScaleFactor  , 0, dis) - _ColorOffset * sign(col.a-0.1));
                 addColor.a =  addColor.a * col.a * _ColorPow;
                 return addColor;
             }
             ENDCG
-        }
+  }
         // Border Color
         Pass
         {
@@ -134,6 +140,7 @@ Shader "Unlit/Hover Light"
             float4 _BorderTex_ST;
             fixed4 _MousePos;
             float _ColorRadius;
+            float _ScaleFactor;
             fixed4 _Color;
             float _BorderPow;
 
@@ -151,7 +158,7 @@ Shader "Unlit/Hover Light"
 
                 float dis = distance(_MousePos.xy, i.vertexBorder.xy);
                 
-                col = col + sign(col.a) * smoothstep(_ColorRadius, 0, dis) * _Color * _BorderPow;
+                col = col + sign(col.a) * smoothstep(_ColorRadius*_ScaleFactor, 0, dis) * _Color * _BorderPow;
                 return col;
             }
             ENDCG
